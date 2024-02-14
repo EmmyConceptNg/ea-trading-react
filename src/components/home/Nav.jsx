@@ -13,10 +13,10 @@ export function Navbar({ ffor = "" }) {
         }}
       >
         <Stack
-          spacing={ffor == "mobile" ? 2 : 5}
+          spacing={ffor === "mobile" ? 2 : 5}
           sx={{ mx: "auto" }}
-          direction={ffor == "mobile" ? "column" : "row"}
-          alignItems={ffor == "mobile" ? "start" : "start"}
+          direction={ffor === "mobile" ? "column" : "row"}
+          alignItems={ffor === "mobile" ? "start" : "start"}
         >
           {[
             {
@@ -47,7 +47,7 @@ export function Navbar({ ffor = "" }) {
           ))}
         </Stack>
       </Box>
-      {ffor == "mobile" && <br />}
+      {ffor === "mobile" && <br />}
       <Box
         sx={{
           display: {
@@ -59,17 +59,17 @@ export function Navbar({ ffor = "" }) {
         }}
       >
         <Stack
-          spacing={ffor == "mobile" ? 2 : 5}
+          spacing={ffor === "mobile" ? 2 : 5}
           sx={{ mx: "auto" }}
-          direction={ffor == "mobile" ? "row" : "row"}
-          alignItems={ffor == "mobile" ? "center" : "center"}
+          direction={ffor === "mobile" ? "row" : "row"}
+          alignItems={ffor === "mobile" ? "center" : "center"}
         >
           <Button
             onClick={() => navigate("/login")}
             variant="contained"
             color="primary"
             sx={{
-              width: `${ffor == "mobile" ? "45%" : "139px"}`,
+              width: `${ffor === "mobile" ? "45%" : "139px"}`,
               backgroundPosition: "center",
             }}
           >
@@ -80,7 +80,7 @@ export function Navbar({ ffor = "" }) {
             variant="contained"
             color="secondary"
             sx={{
-              width: `${ffor == "mobile" ? "45%" : "139px"}`,
+              width: `${ffor === "mobile" ? "45%" : "139px"}`,
               backgroundPosition: "center",
             }}
           >

@@ -32,10 +32,10 @@ export default function Support() {
                 lg: "68px",
               },
               fontSize: {
-                md: "64px",
+                md: "40px",
                 xs: "40px",
                 sm: "40px",
-                lg: "64px",
+                lg: "40px",
               },
               mb: 3,
               textAlign: {

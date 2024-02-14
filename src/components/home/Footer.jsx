@@ -13,7 +13,7 @@ import { Avatar, Button, Container, Link, Stack } from "@mui/material";
 const AppBarStyled = styled(AppBar)(({ theme }) => ({
   boxShadow: "none",
   background: theme.palette.background.paper,
-  backgroundColor: "#EEF8FF",
+  backgroundColor: "transparent",
   justifyContent: "center",
   backdropFilter: "blur(4px)",
 
@@ -31,7 +31,7 @@ export default function Footer(props) {
       <ToolbarStyled>
         <Container>
           <Box
-            bgcolor="#EEF8FF"
+            bgcolor="transparent"
             py={3}
             width={"100%"}
             display={"flex"}
@@ -96,7 +96,7 @@ export default function Footer(props) {
                   >
                     <Link
                       sx={{
-                        color: "#000",
+                        color: "#fff",
                         fontSize: "15px",
                         textWrap: "no-wrap",
                       }}
@@ -106,7 +106,7 @@ export default function Footer(props) {
                     </Link>
                     <Link
                       sx={{
-                        color: "#000",
+                        color: "#fff",
                         fontSize: "15px",
                         textWrap: "no-wrap",
                       }}
@@ -116,7 +116,7 @@ export default function Footer(props) {
                     </Link>
                     <Link
                       sx={{
-                        color: "#000",
+                        color: "#fff",
                         fontSize: "15px",
                         textWrap: "no-wrap",
                       }}
@@ -145,8 +145,9 @@ export default function Footer(props) {
                   sx={{
                     width: "40px",
                     height: "40px",
-                    p: "3px",
+                    p: "3px", 
                   }}
+                  color="secondary"
                 />
                 <Avatar
                   onClick={() =>
@@ -158,8 +159,9 @@ export default function Footer(props) {
                   sx={{
                     width: "40px",
                     height: "40px",
-                    p: "3px",
+                    p: "3px", 
                   }}
+                  color="secondary"
                 />
                 <Avatar
                   onClick={() =>
@@ -171,10 +173,11 @@ export default function Footer(props) {
                   sx={{
                     width: "40px",
                     height: "40px",
-                    p: "3px",
+                    p: "3px", 
                   }}
+                  color="secondary"
                 />
-                <Avatar
+                <Avatar 
                   onClick={() =>
                     (window.location.href =
                       "https://www.instagram.com/eatrading")
@@ -184,8 +187,9 @@ export default function Footer(props) {
                   sx={{
                     width: "40px",
                     height: "40px",
-                    p: "3px",
+                    p: "3px", 
                   }}
+                  color="secondary"
                 />
               </Stack>
             </Box>

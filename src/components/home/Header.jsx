@@ -37,7 +37,7 @@ export default function Header(props) {
           style={{
             overflow: "hidden",
             zIndex: 10012121,
-            background: "white",
+            background: "#100819",
             position: "fixed",
             left: 0,
             top: 0,
@@ -56,7 +56,7 @@ export default function Header(props) {
               <CloseIcon
                 onClick={() => setIsSidebar(!isSidebar)}
                 sx={{ fontSize: "26px" }}
-                color="default"
+                color="secondary"
               />
             </div>
             <Navbar ffor="mobile" />
@@ -71,7 +71,7 @@ export default function Header(props) {
             <Box
               component="img"
               src="/assets/logo/logo.png"
-              sx={{ height: "50px" }}
+              sx={{ height: "40px" }}
             ></Box>
           </Box>
 
@@ -102,7 +102,7 @@ export default function Header(props) {
           >
             <Box
               sx={{
-                bgcolor: "white",
+                
                 color: "default",
                 borderRadius: "4px",
               }}
@@ -110,7 +110,7 @@ export default function Header(props) {
               <MenuIcon
                 onClick={() => setIsSidebar(!isSidebar)}
                 sx={{ fontSize: "26px" }}
-                color="default"
+                color="secondary"
               />
             </Box>
           </Box>
