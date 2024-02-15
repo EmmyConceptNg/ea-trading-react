@@ -79,6 +79,20 @@ const Profile = () => {
                 }}
             >
                 
+                <Typography
+                    variant="h6"
+                    fontSize={{
+                        xs: "initial",
+                        sm: "initial",
+                        md: "initial",
+                    }}
+                    py={1}
+                    px={2}
+                    onClick={() => navigate("/dashboard/profile")}
+                >
+                    My Profile
+                </Typography>
+                
                 <Box mt={1} py={1} px={2}>
                     <Button
                         onClick={handleLogout}

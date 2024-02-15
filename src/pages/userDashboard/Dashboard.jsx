@@ -1,8 +1,9 @@
 import { Icon } from "@iconify/react";
-import { Box, Container, Grid, IconButton } from "@mui/material";
+import { Box, Button, Container, Grid, IconButton } from "@mui/material";
 import React, { useState } from "react";
 import Text from "../../components/utils/Text";
 import Chart from "../../components/userDashboard/Chart";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
 
@@ -18,8 +19,15 @@ export default function Dashboard() {
     setBalancesVisible(updatedVisibility);
   };
 
+  const navigate = useNavigate()
   return (
     <Container>
+      <Box bgcolor="#FFB849" width="100%" borderRadius="9px" mb={2}>
+        <Text fs="16px" fw="600" color="#fff" sx={{ textAlign: "center", }}>
+          You need to verify your identity before your account can be activated.{" "}
+          <Button color="primary" onClick={() => navigate('/dashboard/kyc')}>Click to Verify</Button>
+        </Text>
+      </Box>
       <Grid container spacing={2}>
         {[
           {
@@ -96,8 +104,6 @@ export default function Dashboard() {
           </Grid>
         ))}
       </Grid>
-
-
 
       <Box mt={3}>
         <Chart />

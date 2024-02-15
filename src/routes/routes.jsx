@@ -9,6 +9,8 @@ import FullLayout from "../components/userDashboard/layouts/full/FullLayout";
 import Dashboard from "../pages/userDashboard/Dashboard";
 import Transactions from "../pages/userDashboard/Transactions";
 import Subscriptions from "../pages/userDashboard/Subscription";
+import Profile from "../pages/userDashboard/Profile";
+import KYC from "../pages/userDashboard/KYC";
 
 export const Router = () => {
   const routes = useRoutes([
@@ -45,6 +47,8 @@ export const Router = () => {
         { path: "app", element: <Dashboard /> },
         { path: "transactions", element: <Transactions /> },
         { path: "subscriptions", element: <Subscriptions /> },
+        { path: "profile", element: <Profile /> },
+        { path: "kyc", element: <KYC /> },
       ],
     },
   ]);
