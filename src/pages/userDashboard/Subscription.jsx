@@ -66,7 +66,7 @@ export default function Subscriptions() {
         </Typography>
       </Stack>
       <Box borderRadius="22px">
-        <Stack direction="row" justifyContent={"space-evenly"}>
+        <Stack direction={{ md:"row", lg: 'row', xs:'column', sm:'column' }} justifyContent={"space-evenly"}>
           <Box
             bgcolor="#22BB9C"
             display="flex"
@@ -76,10 +76,10 @@ export default function Subscriptions() {
             width="100%"
             height="300px"
           >
-            <Text fs="64px" color="#fff" fw="600">
+            <Text fs="50px" color="#fff" fw="600">
               BOT 1
             </Text>
-            <Text fs="96px" color="#fff" fw="600">
+            <Text fs="60px" color="#fff" fw="600">
               £300
             </Text>
           </Box>
@@ -96,7 +96,7 @@ export default function Subscriptions() {
               <Box key={index} display="flex" alignItems="center">
                 <CheckOutlined color="primary" />
                 <Text
-                  fs="32px"
+                  fs="24px"
                   fw="400"
                   color="#616161"
                   sx={{ textAlign: "left" }}

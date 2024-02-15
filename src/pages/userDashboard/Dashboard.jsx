@@ -22,7 +22,7 @@ export default function Dashboard() {
   const navigate = useNavigate()
   return (
     <Container>
-      <Box bgcolor="#FFB849" width="100%" borderRadius="9px" mb={2}>
+      <Box bgcolor="#FFB849" width="100%" borderRadius="9px" mb={2} p={2}>
         <Text fs="16px" fw="600" color="#fff" sx={{ textAlign: "center", }}>
           You need to verify your identity before your account can be activated.{" "}
           <Button color="primary" onClick={() => navigate('/dashboard/kyc')}>Click to Verify</Button>

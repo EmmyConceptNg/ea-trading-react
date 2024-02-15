@@ -204,11 +204,11 @@ const Sidebar = (props) => {
             <Box
                 onClick={() => navigate("/dashboard")}
                 px={3}
-                sx={{ mb: 4, cursor: "pointer" }}
+                sx={{ my: 4, cursor: "pointer" }}
                 component="img"
                 width="200px"
-                src="/assets/logo/logo.svg"
-                alt="Genius Logo"
+                src="/assets/logo/logo.png"
+                alt="EA-Trading"
             />
             {/* ------------------------------------------- */}
             {/* Sidebar For Mobile */}

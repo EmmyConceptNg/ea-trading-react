@@ -9,7 +9,7 @@ export default function Chart() {
         <TradeViewChart
           containerStyle={{
             height: "300px",
-            minWidth: "400px",
+            minWidth: "100%",
             marginBottom: "50px",
           }}
           pair="BTCUSDT"
