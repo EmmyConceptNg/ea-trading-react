@@ -75,17 +75,27 @@ export function Navbar({ ffor = "" }) {
           >
             Login
           </Button>
-          <Button
-            onClick={() => navigate("/register")}
-            variant="contained"
-            color="secondary"
-            sx={{
-              width: `${ffor === "mobile" ? "45%" : "139px"}`,
-              backgroundPosition: "center",
+          <Link
+            style={{
+              color: "#fff",
+              cursor: "pointer",
             }}
+            to="pricing"
+            smooth={true}
+            duration={500}
           >
-            Register
-          </Button>
+            <Button
+              sx={{
+                width: `${ffor === "mobile" ? "100%" : "139px"}`,
+                
+              }}
+              variant="contained"
+              color="secondary"
+              
+            >
+              Register
+            </Button>
+          </Link>
         </Stack>
       </Box>
     </>

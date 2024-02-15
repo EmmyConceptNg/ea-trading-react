@@ -1,6 +1,7 @@
 import { Grid, Box, Typography, Button } from "@mui/material";
 import React from 'react'
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-scroll";
 
 export default function Trade() {
 
@@ -68,7 +69,7 @@ export default function Trade() {
             Follow our market insights to make informed decisions.
           </Typography>
           <Box display="flex">
-            <Button
+            <Box
               sx={{
                 mx: {
                   md: 0,
@@ -76,14 +77,35 @@ export default function Trade() {
                   xs: "auto",
                   sm: "auto",
                 },
-                width: "198px",
               }}
-              onClick={() => navigate("/login")}
-              variant="outlined" color="secondary"
-              size="large"
             >
-             Invest Now
-            </Button>
+              <Link
+                style={{
+                  color: "#fff",
+                  cursor: "pointer",
+                }}
+                to="pricing"
+                smooth={true}
+                duration={500}
+              >
+                <Button
+                  sx={{
+                    mx: {
+                      md: 0,
+                      lg: 0,
+                      xs: "auto",
+                      sm: "auto",
+                    },
+                    width: "198px",
+                  }}
+                  variant="outlined"
+                  color="secondary"
+                  size="large"
+                >
+                  Invest Now
+                </Button>
+              </Link>
+            </Box>
           </Box>
         </Box>
       </Grid>

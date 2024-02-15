@@ -1,9 +1,20 @@
 import { Box, Button, Grid } from '@mui/material'
-import React from 'react'
+import React, {useState} from 'react'
 import Text from '../utils/Text';
+import SubscriptionModal from './SubscriptionModal';
 
 export default function Pricing() {
+  const [bot, setBot] = useState({})
+  const [open, setOpen] = useState(false)
+
+  const [wallet, setWallet] = useState({})
+
+  const handleInvest = (item) =>{
+    setBot(item);
+    setOpen(true)
+  }
   return (
+    <>
     <Box>
       <Box>
         <Text
@@ -36,19 +47,19 @@ export default function Pricing() {
         {[
           {
             name: "BOT 1",
-            amount: "£300",
+            amount: "300",
             roi: "10%",
             months: "6",
           },
           {
             name: "BOT 2",
-            amount: "£1200",
+            amount: "1200",
             roi: "15%",
             months: "6",
           },
           {
             name: "BOT 3",
-            amount: "£1800",
+            amount: "1800",
             roi: "20%",
             months: "6",
           },
@@ -96,7 +107,7 @@ export default function Pricing() {
                     textAlign: "center",
                   }}
                 >
-                  {item.amount}
+                  {`£ ${item.amount}`}
                 </Text>
                 <Text
                   my="auto"
@@ -135,7 +146,7 @@ export default function Pricing() {
                   Weekly ROI withdrawal
                 </Text>
                 <Box mt={5}>
-                  <Button variant="contained" color="secondary">
+                  <Button variant="contained" onClick={() => handleInvest(item)} color="secondary">
                     Invest
                   </Button>
                 </Box>
@@ -145,5 +156,7 @@ export default function Pricing() {
         ))}
       </Grid>
     </Box>
+    <SubscriptionModal open={open} setOpen={setOpen} bot={bot} wallet={wallet} />
+    </>
   );
 }

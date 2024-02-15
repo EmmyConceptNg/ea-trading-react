@@ -1,6 +1,7 @@
 import { Grid, Box, Typography, Button } from "@mui/material";
 import React from 'react'
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-scroll";
 
 export default function Hero() {
 
@@ -66,29 +67,17 @@ export default function Hero() {
           >
             Trade bitcoin and ethereum easily and securely
           </Typography>
+
           <Box display="flex">
-            <Button
-              sx={{
-                mx: {
-                  md: 0,
-                  lg: 0,
-                  xs: "auto",
-                  sm: "auto",
-                },
-                width: "198px",
-              }}
-              onClick={() => navigate("/login")}
-              variant="outlined" color="secondary"
-              size="large"
-            >
-              Invest Now
-            </Button>
+           
           </Box>
         </Box>
       </Grid>
       <Grid item md={6}>
         <Box display="flex">
-          <Box my='auto'
+          <Box
+            my="auto"
+            mx="auto"
             component="img"
             src="/assets/images/bitcoin.png"
             sx={{ width: "100%" }}

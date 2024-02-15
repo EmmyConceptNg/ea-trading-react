@@ -9,14 +9,15 @@ import {
     Divider,
 } from "@mui/material";
 /* import Logo from '../shared/logo/Logo'; */
-import SidebarItems from "./SidebarItems";
+
 
 import { useNavigate } from "react-router-dom";
 
 import { Icon } from "@iconify/react";
 import Swal from "sweetalert2";
+import AdminSidebarItems from "./AdminSidebarItems";
 
-const Sidebar = (props) => {
+const AdminSidebar = (props) => {
     const navigate = useNavigate();
     const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
 
@@ -76,7 +77,7 @@ const Sidebar = (props) => {
                 {/* Logo */}
                 {/* ------------------------------------------- */}
                 <Box
-                  onClick={() => navigate("/dashboard")}
+                  onClick={() => navigate("/admin")}
                   p={3}
                   sx={{ mb: 4 }}
                   component="img"
@@ -89,7 +90,7 @@ const Sidebar = (props) => {
                   {/* ------------------------------------------- */}
                   {/* Sidebar Items */}
                   {/* ------------------------------------------- */}
-                  <SidebarItems onSidebarClose={props.onSidebarClose} />
+                  <AdminSidebarItems onSidebarClose={props.onSidebarClose} />
                 </Box>
                 <Divider />
                 <Box
@@ -125,60 +126,7 @@ const Sidebar = (props) => {
                     </Typography>
                   </Stack>
                 </Box>
-                <Box
-                  px={3}
-                  sx={{
-                    mx: 2,
-                    my: 4,
-                    p: 3,
-                    width: "200px",
-                    height: "200px",
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "contain",
-                    backgroundImage: 'url("/assets/icons/upgrade.svg")',
-                  }}
-                >
-                  <Box sx={{ display: "flex" }}>
-                    <Box
-                      component="img"
-                      src="/assets/icons/light.svg"
-                      alt=""
-                      sx={{ mx: "auto" }}
-                    />
-                  </Box>
-                  <Typography
-                    variant="h3"
-                    align="center"
-                    sx={{ color: "#fff", fontWeight: "bolder" }}
-                  >
-                    Pro Account
-                  </Typography>
-                  <Typography
-                    variant="h6"
-                    align="center"
-                    sx={{ color: "#fff" }}
-                  >
-                    Unlock all features
-                  </Typography>
-                  <Box sx={{ display: "flex" }}>
-                    <Button
-                      onClick={() => navigate("/dashboard/subscriptions")}
-                      sx={{
-                        width: "135px",
-                        height: "27.79px",
-                        backgroundImage: 'url("/assets/icons/play.svg")',
-                        backgroundSize: "cover",
-                        backgroundRepeat: "no-repeat",
-                        mx: "auto",
-                        mt: 1,
-                        px: "auto",
-                        color: "#fff",
-                      }}
-                    >
-                      Upgrade
-                    </Button>
-                  </Box>
-                </Box>
+                
               </Box>
             </Drawer>
           </Box>
@@ -214,7 +162,7 @@ const Sidebar = (props) => {
             {/* Sidebar For Mobile */}
             {/* ------------------------------------------- */}
             <Box>
-                <SidebarItems onSidebarClose={props.onSidebarClose} />
+                <AdminSidebarItems onSidebarClose={props.onSidebarClose} />
             </Box>
             <Box
                 p={1}
@@ -250,58 +198,9 @@ const Sidebar = (props) => {
                     </Typography>
                 </Stack>
             </Box>
-            <Box
-                px={3}
-                sx={{
-                    mx: 2,
-                    my: 4,
-                    p: 3,
-                    width: "200px",
-                    height: "200px",
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "contain",
-                    backgroundImage: 'url("/assets/icons/upgrade.svg")',
-                }}
-            >
-                <Box sx={{ display: "flex" }}>
-                    <Box
-                        component="img"
-                        src="/assets/icons/light.svg"
-                        alt=""
-                        sx={{ mx: "auto" }}
-                    />
-                </Box>
-                <Typography
-                    variant="h3"
-                    align="center"
-                    sx={{ color: "#fff", fontWeight: "bolder" }}
-                >
-                    Pro Account
-                </Typography>
-                <Typography variant="h6" align="center" sx={{ color: "#fff" }}>
-                    Unlock all features
-                </Typography>
-                <Box sx={{ display: "flex" }}>
-                    <Button
-                        onClick={() => navigate("/dashboard/subscriptions")}
-                        sx={{
-                            width: "135px",
-                            height: "27.79px",
-                            backgroundImage: 'url("/assets/icons/play.svg")',
-                            backgroundSize: "cover",
-                            backgroundRepeat: "no-repeat",
-                            mx: "auto",
-                            mt: 1,
-                            px: "auto",
-                            color: "#fff",
-                        }}
-                    >
-                        Upgrade
-                    </Button>
-                </Box>
-            </Box>
+      
         </Drawer>
     );
 };
 
-export default Sidebar;
+export default AdminSidebar;

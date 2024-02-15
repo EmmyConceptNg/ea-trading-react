@@ -5,12 +5,17 @@ import Home from "../pages/Home";
 import Verify from "../pages/auth/Verify";
 import PasswordVerify from "../pages/auth/PasswordVerify";
 import ChangePassword from "../pages/auth/ChangePassword";
-import FullLayout from "../components/userDashboard/layouts/full/FullLayout";
+import FullLayout from "../components/layouts/full/FullLayout";
 import Dashboard from "../pages/userDashboard/Dashboard";
 import Transactions from "../pages/userDashboard/Transactions";
 import Subscriptions from "../pages/userDashboard/Subscription";
 import Profile from "../pages/userDashboard/Profile";
 import KYC from "../pages/userDashboard/KYC";
+import AdminDashboard from "../pages/adminDashboard/AdminDashboard";
+import AdminLayout from "../components/layouts/full/AdminLayout";
+import Users from "../pages/adminDashboard/Users";
+import AdminSubscriptions from "../pages/adminDashboard/AdminSubscription";
+import Withdrawals from "../pages/adminDashboard/Withdrawals";
 
 export const Router = () => {
   const routes = useRoutes([
@@ -49,6 +54,18 @@ export const Router = () => {
         { path: "subscriptions", element: <Subscriptions /> },
         { path: "profile", element: <Profile /> },
         { path: "kyc", element: <KYC /> },
+      ],
+    },
+    {
+      path: "/admin",
+      element: <AdminLayout />,
+      children: [
+        { element: <Navigate to="dashboard" />, index: true },
+        { path: "dashboard", element: <AdminDashboard /> },
+        { path: "users", element: <Users /> },
+        { path: "subscriptions", element: <AdminSubscriptions /> },
+        { path: "withdrawals", element: <Withdrawals /> },
+        { path: "profile/:id", element: <Profile /> },
       ],
     },
   ]);

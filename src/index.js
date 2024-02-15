@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { createTheme, ThemeProvider } from "@mui/material";
 import { Provider } from 'react-redux';
 import { store } from './redux/store/store';
+import "react-toastify/dist/ReactToastify.css";
 
 
 const theme = createTheme({
