@@ -49,19 +49,19 @@ export default function Pricing() {
             name: "BOT 1",
             amount: "300",
             roi: "10%",
-            months: "6",
+            months: "6-12",
           },
           {
             name: "BOT 2",
             amount: "1200",
             roi: "15%",
-            months: "6",
+            months: "6-12",
           },
           {
             name: "BOT 3",
             amount: "1800",
             roi: "20%",
-            months: "6",
+            months: "6-12",
           },
         ].map((item, index) => (
           <Grid item md={4} lg={4} sm={6} xs={12} key={index}>

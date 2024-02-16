@@ -16,6 +16,7 @@ import AdminLayout from "../components/layouts/full/AdminLayout";
 import Users from "../pages/adminDashboard/Users";
 import AdminSubscriptions from "../pages/adminDashboard/AdminSubscription";
 import Withdrawals from "../pages/adminDashboard/Withdrawals";
+import Settings from "../pages/adminDashboard/Settings";
 
 export const Router = () => {
   const routes = useRoutes([
@@ -66,6 +67,7 @@ export const Router = () => {
         { path: "subscriptions", element: <AdminSubscriptions /> },
         { path: "withdrawals", element: <Withdrawals /> },
         { path: "profile/:id", element: <Profile /> },
+        { path: "settings", element: <Settings /> },
       ],
     },
   ]);

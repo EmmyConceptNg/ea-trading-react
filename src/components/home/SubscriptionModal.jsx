@@ -222,6 +222,26 @@ export default function SubscriptionModal({ open, setOpen, bot, wallet }) {
                   />
                 </FormControl>
 
+                <FormControl>
+                  <InputLabel id="duration">Duration</InputLabel>
+                  <Select
+                    size="small"
+                    labelId="duration"
+                    id="duration"
+                    name="duration"
+                    value={payload.duration}
+                    onChange={handleChange}
+                    label="duration"
+                  >
+                    <MenuItem value="">
+                      <em>Select Duration</em>
+                    </MenuItem>
+
+                    <MenuItem value="6">6 Months</MenuItem>
+                    <MenuItem value="12">12 Months</MenuItem>
+                  </Select>
+                </FormControl>
+
                 <Box display="flex">
                   <LoadingButton type="submit" variant="contained">
                     Save

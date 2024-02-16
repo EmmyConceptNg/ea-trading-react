@@ -21,6 +21,7 @@ import Notification from "./Notification";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Icon } from "@iconify/react";
+import AdminProfile from "./AdminProfile";
 
 const AdminHeader = (props) => {
     // const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
@@ -128,7 +129,7 @@ const AdminHeader = (props) => {
               </Box>
               <Stack spacing={1} direction="row" alignItems="center">
                 <Icon color="#744BAB" icon="clarity:notification-solid" />
-                <Profile />
+                <AdminProfile />
               </Stack>
             </Stack>
           </ToolbarStyled>

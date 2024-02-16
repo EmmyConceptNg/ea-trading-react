@@ -26,6 +26,12 @@ const AdminMenuitems = [
     icon: "mdi:cash-multiple",
     href: "/admin/withdrawals",
   },
+  {
+    id: uniqueId(),
+    title: "Settings",
+    icon: "material-symbols:settings",
+    href: "/admin/settings",
+  },
 ];
 
 export default AdminMenuitems;
