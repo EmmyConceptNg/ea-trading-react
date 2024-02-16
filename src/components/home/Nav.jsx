@@ -93,7 +93,7 @@ export function Navbar({ ffor = "" }) {
               color="secondary"
               
             >
-              Register
+              Invest Now
             </Button>
           </Link>
         </Stack>

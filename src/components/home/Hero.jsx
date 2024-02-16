@@ -69,7 +69,43 @@ export default function Hero() {
           </Typography>
 
           <Box display="flex">
-           
+            <Box
+              sx={{
+                mx: {
+                  md: 0,
+                  lg: 0,
+                  xs: "auto",
+                  sm: "auto",
+                },
+              }}
+            >
+              <Link
+                style={{
+                  color: "#fff",
+                  cursor: "pointer",
+                }}
+                to="pricing"
+                smooth={true}
+                duration={500}
+              >
+                <Button
+                  sx={{
+                    mx: {
+                      md: 0,
+                      lg: 0,
+                      xs: "auto",
+                      sm: "auto",
+                    },
+                    width: "198px",
+                  }}
+                  variant="outlined"
+                  color="secondary"
+                  size="large"
+                >
+                  Invest Now
+                </Button>
+              </Link>
+            </Box>
           </Box>
         </Box>
       </Grid>

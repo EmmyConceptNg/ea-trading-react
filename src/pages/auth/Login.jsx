@@ -128,7 +128,7 @@ const navigate =useNavigate();
                 Forget Password?
               </Text>
             </Box>
-            <Box>
+            {/* <Box>
               <Text
                 fs="16px"
                 fw="400"
@@ -140,7 +140,7 @@ const navigate =useNavigate();
               >
                 Register
               </Text>
-            </Box>
+            </Box> */}
           </Box>
         </Box>
       </Box>
