@@ -21,34 +21,38 @@ import axios from "../../api/axios";
 import SkeletonLoader from "../loader/TableLoader";
 import { notify } from "../../utils/utils";
 import { getSuggestedQuery } from "@testing-library/react";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import moment from "moment";
+import { ToastContainer } from "react-toastify";
 
-export default function UsersTable(dashboard = false) {
+export default function AdminWithdrawalsTable() {
   const [loading, setLoading] = useState(true);
-  const [users, setUsers] = useState([]);
+  const [withdrawals, setWithdrawals] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const navigate = useNavigate()
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    getUsers();
+    getWithdrawals();
   }, [currentPage]);
 
-  const getUsers = () => {
+  const getWithdrawals = () => {
     setLoading(true);
     axios
-      .get(`/api/admin/users?page=${currentPage}`, {
+      .get(`/api/admin/withdrawals?page=${currentPage}`, {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
-        setUsers(response.data.users);
+        setWithdrawals(response.data.withdrawals);
         setCurrentPage(response.data.currentPage);
         setTotalPages(response.data.totalPages);
         setLoading(false);
       });
   };
 
-  const [anchorEls, setAnchorEls] = useState(Array(users.length).fill(null));
+  const [anchorEls, setAnchorEls] = useState(
+    Array(withdrawals.length).fill(null)
+  );
 
   const handleClick = (event, index) => {
     const newAnchorEls = [...anchorEls];
@@ -90,18 +94,19 @@ export default function UsersTable(dashboard = false) {
     });
   };
 
-  const handleActivation = (id, index) => {
+  const handleActivation = (id, userId, amount, index) => {
     axios
-      .post("/api/admin/users/account-status", { userId: id })
+      .post("/api/admin/withdrawals/status", { withdrawalId: id, userId, amount })
       .then((response) => {
         notify(response.data.message, "success");
         handleClose(index);
-        getUsers();
+        getWithdrawals();
       })
       .catch((error) => notify(error?.response?.data?.error, "error"));
   };
   return (
     <Box>
+      <ToastContainer />
       <Box bgcolor="#fff" p={3} borderRadius="15px">
         <TableContainer component={Paper}>
           <Table>
@@ -109,12 +114,9 @@ export default function UsersTable(dashboard = false) {
               <TableRow sx={{ background: "#F3F9FF" }}>
                 {[
                   "S/N",
-                  "First Name",
-                  "Last Name",
-                  "Email",
+                  "Transaction Date",
                   "Wallet Address",
                   "Network",
-                  "Bot Name",
                   "Amount",
                   "Status",
                   "Action",
@@ -131,7 +133,7 @@ export default function UsersTable(dashboard = false) {
                     .fill("")
                     .map((item, i) => (
                       <TableRow key={i}>
-                        {Array(10)
+                        {Array(7)
                           .fill("")
                           .map((item, i) => (
                             <TableCell key={i}>
@@ -140,10 +142,10 @@ export default function UsersTable(dashboard = false) {
                           ))}
                       </TableRow>
                     ))
-                : users.map((user, index) => (
+                : withdrawals.map((withdrawal, index) => (
                     <>
                       <TableRow
-                        key={user.id}
+                        key={withdrawal._id}
                         sx={{
                           "&:last-child td, &:last-child th": {
                             border: 0,
@@ -153,23 +155,21 @@ export default function UsersTable(dashboard = false) {
                         }}
                       >
                         <TableCell>{index + 1}</TableCell>
-                        <TableCell>{user?.firstName}</TableCell>
+                        <TableCell>
+                          {moment(withdrawal?.date).format("MMMM Do YYYY")}
+                        </TableCell>
 
-                        <TableCell>{user?.lastName}</TableCell>
-                        <TableCell>{user?.email}</TableCell>
-                        <TableCell>{user?.wallet?.address}</TableCell>
-                        <TableCell>{user?.wallet?.network}</TableCell>
-                        <TableCell>{user?.bot?.name}</TableCell>
-                        <TableCell>{`£${user?.bot?.amount}`}</TableCell>
-
+                        <TableCell>{withdrawal?.wallet?.address}</TableCell>
+                        <TableCell>{withdrawal?.wallet?.network}</TableCell>
+                        <TableCell>{`£${withdrawal?.amount}`}</TableCell>
                         <TableCell>
                           <Text
                             style={{
                               textTransform: "capitalize",
                             }}
-                            color={user?.verified ? "green" : "red"}
+                            color={withdrawal?.verified ? "green" : "red"}
                           >
-                            {user?.verified ? "Verified" : "Pending"}
+                            {withdrawal?.verified ? "Verified" : "Pending"}
                           </Text>
                         </TableCell>
                         <TableCell>
@@ -186,17 +186,17 @@ export default function UsersTable(dashboard = false) {
                           >
                             <MenuItem
                               onClick={() => {
-                                navigate(`/admin/profile/${user?._id}`)
+                                handleActivation(
+                                  withdrawal?._id,
+                                  withdrawal?.userId,
+                                  withdrawal?.amount,
+                                  index
+                                );
                               }}
                             >
-                              View Profile
-                            </MenuItem>
-                            <MenuItem
-                              onClick={() => {
-                                handleActivation(user?._id, index);
-                              }}
-                            >
-                              {user.verified ? "Deactivate" : "Activate"}
+                              {withdrawal.verified
+                                ? "Revoke Withdrawal"
+                                : "Approve Withdrawal"}
                             </MenuItem>
                           </Menu>
                         </TableCell>
@@ -207,9 +207,9 @@ export default function UsersTable(dashboard = false) {
           </Table>
         </TableContainer>
         <Box mt={3}>
-          {!loading && !users?.length > 0 && (
+          {!loading && !withdrawals?.length > 0 && (
             <Text fw="600" fs="16px" color="#000" sx={{ textAlign: "center" }}>
-              No User Available
+              No Withdrawal Available
             </Text>
           )}
         </Box>

@@ -7,7 +7,7 @@ import PasswordVerify from "../pages/auth/PasswordVerify";
 import ChangePassword from "../pages/auth/ChangePassword";
 import FullLayout from "../components/layouts/full/FullLayout";
 import Dashboard from "../pages/userDashboard/Dashboard";
-import Transactions from "../pages/userDashboard/Transactions";
+import Withdrawals from "../pages/userDashboard/Withdrawals";
 import Subscriptions from "../pages/userDashboard/Subscription";
 import Profile from "../pages/userDashboard/Profile";
 import KYC from "../pages/userDashboard/KYC";
@@ -15,8 +15,9 @@ import AdminDashboard from "../pages/adminDashboard/AdminDashboard";
 import AdminLayout from "../components/layouts/full/AdminLayout";
 import Users from "../pages/adminDashboard/Users";
 import AdminSubscriptions from "../pages/adminDashboard/AdminSubscription";
-import Withdrawals from "../pages/adminDashboard/Withdrawals";
+import AdminWithdrawals from "../pages/adminDashboard/AdminWithdrawals";
 import Settings from "../pages/adminDashboard/Settings";
+import UsersProfile from "../pages/adminDashboard/UserProfile";
 
 export const Router = () => {
   const routes = useRoutes([
@@ -51,7 +52,7 @@ export const Router = () => {
       children: [
         { element: <Navigate to="app" />, index: true },
         { path: "app", element: <Dashboard /> },
-        { path: "transactions", element: <Transactions /> },
+        { path: "withdrawals", element: <Withdrawals /> },
         { path: "subscriptions", element: <Subscriptions /> },
         { path: "profile", element: <Profile /> },
         { path: "kyc", element: <KYC /> },
@@ -65,8 +66,8 @@ export const Router = () => {
         { path: "dashboard", element: <AdminDashboard /> },
         { path: "users", element: <Users /> },
         { path: "subscriptions", element: <AdminSubscriptions /> },
-        { path: "withdrawals", element: <Withdrawals /> },
-        { path: "profile/:id", element: <Profile /> },
+        { path: "withdrawals", element: <AdminWithdrawals /> },
+        { path: "profile/:id", element: <UsersProfile /> },
         { path: "settings", element: <Settings /> },
       ],
     },

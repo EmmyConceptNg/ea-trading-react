@@ -7,7 +7,6 @@ export default function Pricing() {
   const [bot, setBot] = useState({})
   const [open, setOpen] = useState(false)
 
-  const [wallet, setWallet] = useState({})
 
   const handleInvest = (item) =>{
     setBot(item);
@@ -48,19 +47,19 @@ export default function Pricing() {
           {
             name: "BOT 1",
             amount: "300",
-            roi: "10%",
+            roi: "10",
             months: "6-12",
           },
           {
             name: "BOT 2",
             amount: "1200",
-            roi: "15%",
+            roi: "15",
             months: "6-12",
           },
           {
             name: "BOT 3",
             amount: "1800",
-            roi: "20%",
+            roi: "20",
             months: "6-12",
           },
         ].map((item, index) => (
@@ -119,7 +118,7 @@ export default function Pricing() {
                     textAlign: "center",
                   }}
                 >
-                  {item.roi} Weekly ROI
+                  {item.roi}% Weekly ROI
                 </Text>
                 <Text
                   my="auto"
@@ -156,7 +155,7 @@ export default function Pricing() {
         ))}
       </Grid>
     </Box>
-    <SubscriptionModal open={open} setOpen={setOpen} bot={bot} wallet={wallet} />
+    <SubscriptionModal open={open} setOpen={setOpen} bot={bot}  />
     </>
   );
 }

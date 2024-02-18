@@ -13,12 +13,20 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import Text from "../../components/utils/Text";
 import { useNavigate } from "react-router-dom";
+import axios from "../../api/axios";
+import { useDispatch } from "react-redux";
+import { notify } from "../../utils/utils";
+import { ToastContainer } from "react-toastify";
+import { store } from "../../redux/store/store";
 
 export default function Login() {
   const [payload, setPayload] = useState({
     email: "",
     password: "",
   });
+
+  const [loginBtn, setLoginBtn] = useState(false)
+  const dispatch = useDispatch();
 const navigate =useNavigate();
   const handleChange = (e) => {
     setPayload({
@@ -29,7 +37,24 @@ const navigate =useNavigate();
 
   const handleLogin = e =>{
     e.preventDefault();
-    navigate('/dashboard')
+    setLoginBtn(true)
+
+    axios.post('/api/auth/login', payload, {headers : {'Content-Type' : 'application/json'}}).then(response => {
+      dispatch({type : 'SET_USER', payload : response.data.user});
+      if(response.data.user.role === 'admin'){
+        navigate("/admin");
+
+      }else{
+
+        navigate("/dashboard");
+      }
+    }).catch(error => {
+      notify(error?.response?.data?.error, 'error')
+      setLoginBtn(false);
+    })
+
+
+    
   }
 
   const [showPassword, setShowPassword] = useState(false);
@@ -42,6 +67,7 @@ const navigate =useNavigate();
 
   return (
     <Box minHeight="100vh" bgcolor="#100819">
+      <ToastContainer />
       <Box
         display="flex"
         sx={{
@@ -108,7 +134,7 @@ const navigate =useNavigate();
                 />
               </FormControl>
 
-              <LoadingButton type="submit" variant="contained" color="primary">
+              <LoadingButton loading={loginBtn} type="submit" variant="contained" color="primary">
                 Login
               </LoadingButton>
             </Stack>
@@ -116,7 +142,7 @@ const navigate =useNavigate();
           <Box display="flex" mt={2} justifyContent="space-between" mx={4}>
             <Box>
               <Text
-                mr="auto"
+                mx="auto"
                 fs="16px"
                 fw="400"
                 color="#A5A3A8"
@@ -128,19 +154,7 @@ const navigate =useNavigate();
                 Forget Password?
               </Text>
             </Box>
-            {/* <Box>
-              <Text
-                fs="16px"
-                fw="400"
-                color="#A5A3A8"
-                sx={{
-                  cursor: "pointer",
-                }}
-                onClick={() => navigate("/register")}
-              >
-                Register
-              </Text>
-            </Box> */}
+           
           </Box>
         </Box>
       </Box>

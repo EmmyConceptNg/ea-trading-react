@@ -15,10 +15,12 @@ import { useNavigate } from "react-router-dom";
 
 import { Icon } from "@iconify/react";
 import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
 
 const Sidebar = (props) => {
     const navigate = useNavigate();
     const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
+    const dispatch = useDispatch()
 
     const sidebarWidth = "270px";
     const handleLogout = () => {
@@ -32,7 +34,7 @@ const Sidebar = (props) => {
             confirmButtonText: "Log Out",
         }).then((result) => {
             if (result.isConfirmed) {
-                localStorage.clear();
+                dispatch({ type: "LOGOUT" });
 
                 navigate("/login");
             }

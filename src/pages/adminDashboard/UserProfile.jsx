@@ -1,42 +1,51 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useNavigate, useParams } from "react-router-dom";
-import { Box, Stack, Button, Avatar, Skeleton, Card, FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton } from "@mui/material";
+import { Box, Stack, Button, Avatar, Skeleton } from "@mui/material";
 import { ToastContainer } from "react-toastify";
 
 import { useSelector } from "react-redux";
 import axios, { getImageUrl } from "../../api/axios";
 import SkeletonLoader from "../../components/loader/TableLoader";
 import Text from "../../components/utils/Text";
-import { ArrowBack, CheckBox, CheckCircle, Checklist, CopyAll, Save, Visibility, VisibilityOff } from "@mui/icons-material";
+import { ArrowBack, CheckCircle } from "@mui/icons-material";
 import { notify } from "../../utils/utils";
 import { LoadingButton } from "@mui/lab";
 
-export default function Profile() {
+export default function UsersProfile() {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [activeTab, setActiveTab] = useState("personal-details");
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(true);
-
+  const [activating, setActivating] = useState(false);
   const [user, setUser] = useState({});
-const loggedUser = useSelector(state => state.user);
+
   useEffect(() => {
-    axios.get(`/api/admin/users/${loggedUser?._id}`).then((response) => {
+    getUser();
+  }, []);
+
+  const getUser = () => {
+    axios.get(`/api/admin/users/${id}`).then((response) => {
       setUser(response.data.user);
       setIsLoading(false);
     });
-  }, []);
-
-
-const handleCopyReferralCode = () => {
-    navigator.clipboard.writeText(
-      user?.referralCode
-    );
-    notify("Referral code copied ", "success");
   };
 
-
+  const handleActivation = () => {
+    setActivating(true);
+    axios
+      .post("/api/admin/users/account-status", { userId: id })
+      .then((response) => {
+        notify(response.data.message, "success");
+        getUser();
+        setActivating(false);
+      })
+      .catch((error) => {
+        notify(error?.response?.data?.error, "error");
+        setActivating(false);
+      });
+  };
   return (
     <>
       <Box>
@@ -65,9 +74,9 @@ const handleCopyReferralCode = () => {
               alignItems="center"
               onClick={() => navigate(-1)}
             >
-              <ArrowBack />
-              <Text fs="14px" fw="400" cursor="pointer" color="#5E83F5">
-                back
+              <ArrowBack fontSize="small" color="primary" />
+              <Text fs="14px" fw="400" cursor="pointer" color="&$$BAC">
+                Back
               </Text>
             </Stack>
 
@@ -88,6 +97,15 @@ const handleCopyReferralCode = () => {
                       user?.lastName || "User"
                     }'s profile`}
               </Text>
+              <LoadingButton
+                loading={activating}
+                onClick={handleActivation}
+                sx={{ ml: "auto" }}
+                variant="contained"
+                color={user?.verified ? "warning" : "primary"}
+              >
+                {user?.verified ? "Deactivate User" : "Activate User"}{" "}
+              </LoadingButton>
             </Stack>
           </Box>
         </Stack>
@@ -155,42 +173,6 @@ const handleCopyReferralCode = () => {
                         ))
                     : `${user?.firstName || ""} ${user?.lastName || ""}`}
                 </Text>
-
-                <Text
-                  mt={3}
-                  fs="16px"
-                  fw="600"
-                  color="#212121"
-                  cursor="pointer"
-                  
-                >
-                  Referral Code :
-                </Text>
-                <Stack direction="row" spacing={5} mt={1}>
-                  <Text
-                    my="auto"
-                    fs="16px"
-                    fw="500"
-                    color="#212121"
-                    cursor="pointer"
-                    onClick={handleCopyReferralCode}
-                  >
-                    {isLoading
-                      ? Array(1)
-                          .fill("")
-                          .map((_, index) => (
-                            <SkeletonLoader h="52px" w="100%" key={index} />
-                          ))
-                      : `${user?.referralCode}`}
-                  </Text>
-                  <IconButton
-                    aria-label=""
-                    my="auto"
-                    onClick={handleCopyReferralCode}
-                  >
-                    <CopyAll fontSize="small" />
-                  </IconButton>
-                </Stack>
               </Stack>
             </Stack>
           </Box>
@@ -342,8 +324,6 @@ const handleCopyReferralCode = () => {
             )}
           </Box>
         </Stack>
-
-        <ChangePass user={user} />
       </Box>
     </>
   );
@@ -401,197 +381,43 @@ function PersonalDetails({ user }) {
           <Text fs="14px" fw="600" color="#0C0C0C" cursor="pointer">
             Subscription Status
           </Text>
-          <Box display="flex" >
-            <CheckCircle color={user?.subscribed ? 'primary' : 'gray'} my="auto" fontSize="small"/>
-            <Text fs="14px" fw="400" mt="10px" color="#0C0C0C" cursor="pointer" my="auto">
+          <Box display="flex">
+            <CheckCircle
+              color={user?.subscribed ? "primary" : "gray"}
+              my="auto"
+              fontSize="small"
+            />
+            <Text
+              fs="14px"
+              fw="400"
+              mt="10px"
+              color="#0C0C0C"
+              cursor="pointer"
+              my="auto"
+            >
               {user.subscribed ? "Subscribed" : "Not Subscribed"}
             </Text>
           </Box>
         </Box>
       </Stack>
+      <Stack direction="row" alignItems="center" width="100%" marginTop="25px">
+        <Box width="50%">
+          <Text fs="14px" fw="600" color="#0C0C0C" cursor="pointer">
+            Subscription Plan
+          </Text>
+          <Text fs="14px" fw="400" mt="10px" color="#0C0C0C" cursor="pointer">
+            {user.bot?.name}
+          </Text>
+        </Box>
+        <Box width="50%">
+          <Text fs="14px" fw="600" color="#0C0C0C" cursor="pointer">
+            Subscription Amount
+          </Text>
+          <Text fs="14px" fw="400" mt="10px" color="#0C0C0C" cursor="pointer">
+            {`£${user.bot?.amount}`}
+          </Text>
+        </Box>
+      </Stack>
     </>
   );
 }
-
-const ChangePass = () => {
-  const [loadPassword, setLoadPassword] = useState(false);
-  const user = useSelector((state) => state.user);
-  const [payload, setPayload] = useState({
-    oldPassword: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const navigate = useNavigate();
-  const handleChange = (e) => {
-    setPayload({
-      ...payload,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const [showOldPassword, setShowOldPassword] = useState(false);
-
-  const handleClickShowOldPassword = () => setShowOldPassword((show) => !show);
-
-  const handleMouseDownOldPassword = (event) => {
-    event.preventDefault();
-  };
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  const handleClickShowConfirmPassword = () =>
-    setShowConfirmPassword((show) => !show);
-
-  const handleMouseDownConfirmPassword = (event) => {
-    event.preventDefault();
-  };
-
-  const handleChangePassword = (e) => {
-    e.preventDefault();
-    setLoadPassword(true);
-    if (payload.password !== payload.confirmPassword) {
-      notify("New Password Mismatch", "error");
-      setLoadPassword(false);
-      return false;
-    }
-
-    const newData = { ...payload, userId: user?._id };
-    axios
-      .post("/api/admin/settings/change-password", newData, {
-        headers: { "Content-Type": "application/json" },
-      })
-      .then((response) => {
-        notify(response.data.message, "success");
-        setLoadPassword(false);
-        setPayload({ oldPassword: "", password: "", confirmPassword: "" });
-      })
-      .catch((error) => {
-        notify(error.response.data.error, "error");
-        setLoadPassword(false);
-      });
-  };
-
-  return (
-    <>
-      <Box my={5}>
-        <Text fw="600" fs="24px" color="#000">
-          Manage Password
-        </Text>
-      </Box>
-      <Card sx={{ p: 3, borderRadius: "15px" }}>
-        <Box my="auto" mx="auto">
-          <Box
-            bgcolor="#fff"
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-            padding="20px"
-            borderRadius="15px"
-            component="form"
-            onSubmit={handleChangePassword}
-          >
-            <Stack spacing={2} mt={5} sx={{ width: "100%" }}>
-              <FormControl variant="outlined" sx={{ width: "100%" }}>
-                <InputLabel htmlFor="oldPassword">Old Password</InputLabel>
-                <OutlinedInput
-                  required
-                  id="oldPassword"
-                  type={showOldPassword ? "text" : "password"}
-                  name="oldPassword"
-                  value={payload.oldPassword}
-                  onChange={handleChange}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowOldPassword}
-                        onMouseDown={handleMouseDownOldPassword}
-                        edge="end"
-                      >
-                        {showOldPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                  label="Old Password"
-                />
-              </FormControl>
-              <FormControl variant="outlined" sx={{ width: "100%" }}>
-                <InputLabel htmlFor="password">Password</InputLabel>
-                <OutlinedInput
-                  required
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  value={payload.password}
-                  onChange={handleChange}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                  label="Password"
-                />
-              </FormControl>
-              <FormControl variant="outlined" sx={{ width: "100%" }}>
-                <InputLabel htmlFor="confirm-password">
-                  Confirm Password
-                </InputLabel>
-                <OutlinedInput
-                  required
-                  id="confirm-password"
-                  type={showConfirmPassword ? "text" : "password"}
-                  name="confirmPassword"
-                  value={payload.confirmPassword}
-                  onChange={handleChange}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowConfirmPassword}
-                        onMouseDown={handleMouseDownConfirmPassword}
-                        edge="end"
-                      >
-                        {showConfirmPassword ? (
-                          <VisibilityOff />
-                        ) : (
-                          <Visibility />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                  label="Confirm Password"
-                />
-              </FormControl>
-
-              <Box display="flex" mt={2}>
-                <LoadingButton
-                  sx={{ ml: "auto" }}
-                  startIcon={<Save />}
-                  type="submit"
-                  variant="contained"
-                  loading={loadPassword}
-                >
-                  Save Password
-                </LoadingButton>
-              </Box>
-            </Stack>
-          </Box>
-        </Box>
-      </Card>
-    </>
-  );
-};

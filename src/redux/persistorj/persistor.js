@@ -1,9 +1,9 @@
 // redux-persist-config.js
 
 import { persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage"; // You can choose a different storage method if needed
+import storage from "redux-persist/lib/storage"; 
 import { combineReducers } from "redux";
-import { userReducer } from "../reducers/userReducer";
+import userReducer  from "../reducers/userReducer";
 // import { getDefaultMiddleware } from "@reduxjs/toolkit";
 
 const persistConfig = {

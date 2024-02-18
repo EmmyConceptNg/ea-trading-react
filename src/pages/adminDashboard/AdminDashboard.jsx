@@ -1,10 +1,12 @@
 import { Icon } from "@iconify/react";
 import { Box, Button, Container, Grid, IconButton } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Text from "../../components/utils/Text";
 import Chart from "../../components/userDashboard/Chart";
 import { useNavigate } from "react-router-dom";
-import TransactionsTable from "../../components/adminDashboard/TransactionsTable";
+import TransactionsTable from "../../components/adminDashboard/AdminWithdrawalsTable";
+import SubscriptionsTable from "../../components/adminDashboard/SubscriptionsTable";
+import axios from "../../api/axios";
 
 export default function AdminDashboard() {
 
@@ -19,6 +21,25 @@ export default function AdminDashboard() {
     updatedVisibility[index] = !updatedVisibility[index];
     setBalancesVisible(updatedVisibility);
   };
+
+
+  const [dash, setDash] = useState({
+    users:0,
+balance:0,
+withdrawal:0,
+    
+  });
+
+  useEffect(() => {
+    axios.get(`/api/admin/dashboard`).then((response) => {
+      setDash((prev) => ({
+        prev,
+        users: response.data.users,
+        balance: response.data.balance,
+        withdrawal: response.data.withdrawal,
+      }));
+    });
+  }, []);
 
   const navigate = useNavigate()
 
@@ -52,22 +73,17 @@ export default function AdminDashboard() {
    };
   return (
     <Container>
+      <Text fw="600" fs="24px" color="#000" mb="10px">
+        Dashboard Overview
+      </Text>
       <Grid container spacing={2}>
         {[
           {
-            icon: "mdi:bitcoin",
+            icon: "mdi:cash-multiple",
             color: "#FFE2E5",
             iconColor: "#FA5A7D",
-            name: "Total Bitcoin Deposited",
-            amount: "$123,987",
-            profit: "",
-          },
-          {
-            icon: "mdi:ethereum",
-            color: "#FFF4DE",
-            iconColor: "#FF947A",
-            name: "Total ETH Deposited",
-            amount: "$123,987",
+            name: "Total Amount Deposited",
+            amount: `£${dash.balance}`,
             profit: "",
           },
           {
@@ -75,7 +91,7 @@ export default function AdminDashboard() {
             color: "#DCFCE7",
             iconColor: "#3CD856",
             name: "Total Withdrawal Made",
-            amount: "$123,987",
+            amount: `£${dash.withdrawal}`,
             profit: "",
           },
           {
@@ -83,7 +99,7 @@ export default function AdminDashboard() {
             color: "#F3E8FF",
             iconColor: "#BF83FF",
             name: "Total Registered Users",
-            amount: "$123,987",
+            amount: `${dash.users}`,
             profit: "",
           },
         ].map((item, index) => (
@@ -141,15 +157,10 @@ export default function AdminDashboard() {
       </Grid>
 
       <Box mt={3}>
-        <TransactionsTable
-          transactions={transactions}
-          hasNextPage={paginationObj.next_page_url}
-          handleLoadMore={handleLoadMore}
-          setTransactions={setTransactions}
-          replaceItem={replaceItem}
-          paginationLoading={paginationLoading}
-          loadMore={false}
-        />
+        <Text fw="600" fs="24px" color="#000" my="10px">
+          Subscriptions History
+        </Text>
+        <SubscriptionsTable dashboard />
       </Box>
     </Container>
   );

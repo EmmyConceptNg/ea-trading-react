@@ -29,7 +29,7 @@ const AdminProfile = () => {
 
     const handleLogout = () => {
         // dispatch(unSetUserState());
-        localStorage.clear();
+        dispatch({ type: "LOGOUT" });
         navigate("/");
     };
 

@@ -17,66 +17,69 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { Helmet } from "react-helmet";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import axios from "../../api/axios";
+import { notify } from "../../utils/utils";
 
 
 
 export default function KYC() {
   const [loadButton, setLoadButton] = useState(false);
-  const [payload, setPayload] = useState({
-    firstName : '',
-    lastName : '',
-    identityType : '',
-    identityImage: '',
-    profileImage : '',
-    coinType: '',
-    walletAddress : ''
-  })
+  const user = useSelector(state => state.user)
+   const [payload, setPayload] = useState({
+     firstName: "",
+     lastName: "",
+     identityType: "",
+     identityImage: null,
+     profileImage: null,
+     network: "",
+     walletAddress: "",
+   });
 
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    e.preventDefault()
-    if(e.target.files){
-        setPayload({ ...payload, [e.target.name]: e.target.files[0] });
-    }
-    setPayload( {...payload, [e.target.name] : e.target.value})
-  }
+   const handleChange = (e) => {
+     const { name, value, files } = e.target;
+     setPayload((prevState) => ({
+       ...prevState,
+       [name]: files ? files[0] : value, 
+     }));
+   };
 
-  const handleAddFlashCard = (e) => {
+   const dispatch = useDispatch()
+  const handleKYC = (e) => {
     e.preventDefault();
     setLoadButton(true);
     const formData = new FormData();
 
-    formData.append("payload", payload);
-   
-    // axios
-    //   .post("/api/admin/flash-cards/create", formData, {
-    //     headers: { "Content-Type": "multipart/form-data" },
-    //   })
-    //   .then((response) => {
-    //     setLoadButton(false);
-    //     notify(response.data.message, "success");
-    //     navigate("/admin/flash-cards");
-    //   })
-    //   .catch((err) => {
-    //     setLoadButton(false);
-    //     Object.entries(err.response.data.errors).forEach(
-    //       ([field, messages]) => {
-    //         messages.forEach((message) => {
-    //           notify(`${message}`, "error");
-    //         });
-    //       }
-    //     );
-    //   });
+    // Append form data
+    Object.entries(payload).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    formData.append("userId", user?._id);
+
+    axios
+      .post("/api/auth/kyc", formData)
+      .then((response) => {
+        setLoadButton(false);
+        notify(response.data.message, "success");
+dispatch({type:'SET_USER', payload : response.data.user})
+        navigate('/dashboard')
+      })
+      .catch((err) => {
+        setLoadButton(false);
+        notify(err.response.data.error, "error");
+      });
   };
   return (
     <>
       <ToastContainer />
       <Container>
         <Card sx={{ p: 3 }}>
-          <Box component="form" onSubmit={handleAddFlashCard}>
+          <Box component="form" onSubmit={handleKYC}>
             <Stack spacing={2}>
               <FormControl variant="outlined" sx={{ width: "100%" }}>
                 <InputLabel htmlFor="firstName">First Name</InputLabel>
@@ -136,18 +139,18 @@ export default function KYC() {
               </Box>
 
               <FormControl>
-                <InputLabel id="coinType">Coin Type</InputLabel>
+                <InputLabel id="network">Network</InputLabel>
                 <Select
                   size="small"
-                  labelId="coinType"
-                  id="coinType"
-                  name="coinType"
-                  value={payload.coinType}
+                  labelId="network"
+                  id="network"
+                  name="network"
+                  value={payload.network}
                   onChange={handleChange}
-                  label="Coin Type"
+                  label="Network"
                 >
                   <MenuItem value="">
-                    <em>Select Coin Type</em>
+                    <em>Select Network</em>
                   </MenuItem>
 
                   <MenuItem value="BITCOIN">BTC</MenuItem>

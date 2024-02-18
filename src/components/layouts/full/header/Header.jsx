@@ -32,11 +32,11 @@ const Header = (props) => {
     
     const [subscribed, setSubscribed] = useState(false);
     const navigate = useNavigate();
-    // useEffect(() => {
-    //     if (!user?.logged) {
-    //         navigate("/login");
-    //     }
-    // }, []);
+    useEffect(() => {
+        if (!user) {
+            navigate("/login");
+        }
+    }, []);
 
     // useEffect(() => {
     //     axios.get(`/api/check-subscription/${user?.id}`).then((response) => {
@@ -84,7 +84,7 @@ const Header = (props) => {
                 sx={{
                   display: {
                     lg: "none",
-                    md: "none",
+                    md: "inline",
                     xs: "inline",
                     sm: "inline",
                   },
@@ -108,7 +108,7 @@ const Header = (props) => {
                   textTransform="capitalize"
                   sx={{ my: "auto", fontWeight : 'bold' }}
                 >
-                  Hi, Welcome {user?.lastName}
+                  Hi, Welcome {user?.lastName }
                 </Typography>
                 <Typography
                   variant="h5"

@@ -10,15 +10,21 @@ const Menuitems = [
 
   {
     id: uniqueId(),
-    title: "Transactions",
+    title: "Withdrawals",
     icon: "ant-design:transaction-outlined",
-    href: "/dashboard/transactions",
+    href: "/dashboard/withdrawals",
   },
   {
     id: uniqueId(),
     title: "Subscriptions",
     icon: "wpf:renew-subscription",
     href: "/dashboard/subscriptions",
+  },
+  {
+    id: uniqueId(),
+    title: "Profile",
+    icon: "wpf:renew-subscription",
+    href: "/dashboard/profile",
   },
 ];
 
