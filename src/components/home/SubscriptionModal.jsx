@@ -344,7 +344,6 @@ const newData = { bot : {...bot}, ...payload };
                       Referral Code (optional)
                     </InputLabel>
                     <OutlinedInput
-                      required
                       id="referral"
                       type="referral"
                       name="referral"
