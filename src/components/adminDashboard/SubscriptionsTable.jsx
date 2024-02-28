@@ -23,6 +23,7 @@ import { notify } from "../../utils/utils";
 import { getSuggestedQuery } from "@testing-library/react";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import { ToastContainer } from "react-toastify";
 
 export default function SubscriptionsTable({dashboard }) {
   const [loading, setLoading] = useState(true);
@@ -101,10 +102,11 @@ export default function SubscriptionsTable({dashboard }) {
         handleClose(index);
         getSubscriptions();
       })
-      .catch((error) => notify(error?.response?.data?.error, "error"));
+      .catch((error) => {notify(error?.response?.data?.error, "error"); handleClose(index);});
   };
   return (
     <Box>
+      <ToastContainer />
       <Box bgcolor="#fff" p={3} borderRadius="15px">
         <TableContainer component={Paper}>
           <Table>

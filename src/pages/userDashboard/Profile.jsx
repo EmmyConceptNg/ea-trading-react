@@ -334,7 +334,7 @@ const handleCopyReferralCode = () => {
                   src={
                     user?.identity?.image
                       ? getImageUrl(user?.identity?.image)
-                      : "/assets/icons/ai-avatar.svg"
+                      : ""
                   }
                   width="500px"
                 />

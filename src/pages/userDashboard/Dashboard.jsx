@@ -35,6 +35,7 @@ export default function Dashboard() {
     });
   },[]);
   const [kycVerified, setKycVerified] = useState(user?.verified || false);
+  const [subscriptionVerified, setSubscriptionVerified] = useState(user?.subscribed || false);
 
   const toggleBalancesVisibility = (index) => {
     const updatedVisibility = [...balancesVisible];
@@ -59,10 +60,15 @@ export default function Dashboard() {
       setKycVerified(response.data.kycStatus);
     });
   }, []);
+  useEffect(() => {
+    axios.get(`/api/auth/subscription-status/${user?._id}`).then((response) => {
+      setSubscriptionVerified(response.data.subscriptionStatus);
+    });
+  }, []);
 
   return (
     <Container>
-      {!user?.subscribed && (
+      {!subscriptionVerified && (
         <Box
           bgcolor="#FFB849"
           width="100%"
@@ -71,7 +77,7 @@ export default function Dashboard() {
           p={2}
           sx={{
             transition: "transform 0.5s ease",
-            transform: showMessage ? "translateX(0)" : "translateX(-150%)",
+            transform: showMessage ? "translateX(0)" : "translateX(-100%)",
           }}
         >
           <Text fs="16px" fw="600" color="#fff" sx={{ textAlign: "center" }}>
@@ -84,7 +90,7 @@ export default function Dashboard() {
           bgcolor="#4dabf5"
           sx={{
             transition: "transform 0.5s ease",
-            transform: showMessage ? "translateX(0)" : "translateX(-150%)",
+            transform: showMessage ? "translateX(0)" : "translateX(-100%)",
           }}
           width="100%"
           borderRadius="9px"
@@ -108,7 +114,7 @@ export default function Dashboard() {
             bgcolor="#4dabf5"
             sx={{
               transition: "transform 0.5s ease",
-              transform: showMessage ? "translateX(0)" : "translateX(-150%)",
+              transform: showMessage ? "translateX(0)" : "translateX(-100%)",
             }}
             width="100%"
             borderRadius="9px"

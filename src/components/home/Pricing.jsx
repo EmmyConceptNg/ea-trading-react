@@ -106,7 +106,7 @@ export default function Pricing() {
                     textAlign: "center",
                   }}
                 >
-                  {`£ ${item.amount}`}
+                  {`Minimum Deposit £ ${item.amount}`}
                 </Text>
                 <Text
                   my="auto"
