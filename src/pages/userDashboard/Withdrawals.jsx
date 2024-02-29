@@ -1,4 +1,4 @@
-import { Button, Container, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
@@ -61,18 +61,18 @@ setOpen(true);
    const [refresh, setRefresh] = useState(false)
 
   return (
-    <Container>
-      <Stack direction="row" justifyContent="space-between" mb={3}>
+    <Box>
+      <Stack direction={{ lg:"row", md : 'row', sm :'column', xs : 'column' }} justifyContent="space-between" mb={3}>
         <Typography variant="h6" color="initial" fontWeight="bold">
           Withdrawals
         </Typography>
-        <Button variant="contained" onClick={handleWithdrawal} >
+        <Button variant="contained"  onClick={handleWithdrawal} >
           Request Withdrawal
         </Button>
       </Stack>
 
       <WithdrawalsTable refresh={refresh} />
       <WithdrawalModal open={open} setOpen={setOpen} user={user}  setRefresh={setRefresh} />
-    </Container>
+    </Box>
   );
 }

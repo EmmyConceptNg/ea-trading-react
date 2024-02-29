@@ -20,7 +20,7 @@ export default function AdminSubscriptions() {
   
  
   return (
-    <Container>
+    <Box>
      
       <Box >
         <Stack direction="row" justifyContent="space-between" mb={3}>
@@ -32,6 +32,6 @@ export default function AdminSubscriptions() {
           <SubscriptionsTable />
        
       </Box>
-    </Container>
+    </Box>
   );
 }

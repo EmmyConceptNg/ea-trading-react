@@ -1,4 +1,4 @@
-import { Button, Container, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,7 @@ export default function AdminWithdrawals() {
 
   
   return (
-    <Container>
+    <Box>
       <Stack direction="row" justifyContent="space-between" mb={3}>
         <Typography variant="h6" color="initial" fontWeight="bold">
           All Withdrawals
@@ -27,6 +27,6 @@ export default function AdminWithdrawals() {
       
 
 
-    </Container>
+    </Box>
   );
 }

@@ -1,4 +1,4 @@
-import { Button, Container, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, Stack, Typography } from "@mui/material";
 
 import UsersTable from "../../components/adminDashboard/UsersTable";
 export default function Users() {
@@ -6,7 +6,7 @@ export default function Users() {
   
 
   return (
-    <Container>
+    <Box>
       <Stack direction="row" justifyContent="space-between" mb={3}>
         <Typography variant="h6" color="initial" fontWeight="bold">
           Users
@@ -18,6 +18,6 @@ export default function Users() {
         
         />
       
-    </Container>
+    </Box>
   );
 }

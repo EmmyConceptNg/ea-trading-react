@@ -18,7 +18,7 @@ export default function Subscriptions() {
   const user = useSelector((state) => state.user);
 
   return (
-    <Container>
+    <Box>
       <Stack direction="row" justifyContent="space-between" mb={3}>
         <Typography variant="h6" color="initial" fontWeight="bold">
           Active Subscription
@@ -80,6 +80,6 @@ export default function Subscriptions() {
           <SubscriptionsTable />
         
       </Box>
-    </Container>
+    </Box>
   );
 }

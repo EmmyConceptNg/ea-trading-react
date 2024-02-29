@@ -107,7 +107,7 @@ export default function SubscriptionsTable({dashboard }) {
   return (
     <Box>
       <ToastContainer />
-      <Box bgcolor="#fff" p={3} borderRadius="15px">
+      <Box bgcolor="#fff" p={{ md:3, lg:3, sm:1, xs:1 }} borderRadius="15px">
         <TableContainer component={Paper}>
           <Table>
             <TableHead>

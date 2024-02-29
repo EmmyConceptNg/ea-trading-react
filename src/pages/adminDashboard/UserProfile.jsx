@@ -248,7 +248,7 @@ export default function UsersProfile() {
                 }}
                 bgcolor="#e9f2ff"
                 marginTop="15px"
-                minWidth="600px"
+                minWidth="375px"
               >
                 {[
                   {

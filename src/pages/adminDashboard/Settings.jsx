@@ -107,8 +107,8 @@ export default function Settings() {
   return (
     <>
       <ToastContainer />
-      <Container>
-        <Card sx={{ p: 3, borderRadius: "15px" }}>
+      <Box>
+        <Card sx={{ p: {md:3, lg:3,xs:1,sm:1}, borderRadius: "15px" }}>
           <Box component="form" onSubmit={handleUpdateSettings}>
             <Stack spacing={2}>
               <FormControl variant="outlined" sx={{ width: "100%" }}>
@@ -187,7 +187,7 @@ export default function Settings() {
           </Box>
         </Card>
         <ChangePass />
-      </Container>
+      </Box>
     </>
   );
 }
@@ -253,12 +253,12 @@ setLoadPassword(true)
 
   return (
     <>
-      <Box my={5}>
+      <Box my={3}>
         <Text fw="600" fs="24px" color="#000">
           Manage Password
         </Text>
       </Box>
-      <Card sx={{ p: 3, borderRadius: "15px" }}>
+      <Card sx={{ p: {md:3,lg:3,xs:1,sm:1}, borderRadius: "15px" }}>
         <Box my="auto" mx="auto">
           <Box
             bgcolor="#fff"
@@ -266,7 +266,7 @@ setLoadPassword(true)
             flexDirection="column"
             alignItems="center"
             justifyContent="center"
-            padding="20px"
+            
             borderRadius="15px"
             component="form"
             onSubmit={handleChangePassword}

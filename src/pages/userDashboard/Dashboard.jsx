@@ -67,11 +67,11 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <Container>
+    <Box>
       {!subscriptionVerified && (
         <Box
           bgcolor="#FFB849"
-          width="100%"
+          maxWidth="100%"
           borderRadius="9px"
           mb={2}
           p={2}
@@ -92,7 +92,7 @@ export default function Dashboard() {
             transition: "transform 0.5s ease",
             transform: showMessage ? "translateX(0)" : "translateX(-100%)",
           }}
-          width="100%"
+          maxWidth="100%"
           borderRadius="9px"
           mb={4}
           p={2}
@@ -250,6 +250,6 @@ export default function Dashboard() {
       <Box mt={3}>
         <Chart />
       </Box>
-    </Container>
+    </Box>
   );
 }

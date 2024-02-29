@@ -102,7 +102,7 @@ export default function UsersTable(dashboard = false) {
   };
   return (
     <Box>
-      <Box bgcolor="#fff" p={3} borderRadius="15px">
+      <Box bgcolor="#fff" p={{ md:3,lg:3,xs:1,sm:1 }} borderRadius="15px">
         <TableContainer component={Paper}>
           <Table>
             <TableHead>

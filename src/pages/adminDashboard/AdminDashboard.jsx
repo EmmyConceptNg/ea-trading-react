@@ -72,7 +72,7 @@ withdrawal:0,
      }
    };
   return (
-    <Container>
+    <Box>
       <Text fw="600" fs="24px" color="#000" mb="10px">
         Dashboard Overview
       </Text>
@@ -162,6 +162,6 @@ withdrawal:0,
         </Text>
         <SubscriptionsTable dashboard />
       </Box>
-    </Container>
+    </Box>
   );
 }

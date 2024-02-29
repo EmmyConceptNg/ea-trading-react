@@ -77,7 +77,7 @@ dispatch({type:'SET_USER', payload : response.data.user})
   return (
     <>
       <ToastContainer />
-      <Container>
+      <Box>
         <Card sx={{ p: 3 }}>
           <Box component="form" onSubmit={handleKYC}>
             <Stack spacing={2}>
@@ -193,7 +193,7 @@ dispatch({type:'SET_USER', payload : response.data.user})
             </Stack>
           </Box>
         </Card>
-      </Container>
+      </Box>
     </>
   );
 }
